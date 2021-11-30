@@ -28,12 +28,14 @@
 
 ;;but you need chose your step wisely
 (defn- take-step-in-board [{:keys [board turn-of] :as world} step]
-  (let [player (first turn-of)
-        step-in-board (assoc board step player)]
-    (-> world
-        (assoc :board step-in-board)
-        (assoc :turn-of (rest turn-of))
-        (#(assoc % :winner (winner? %))))))
+  (if (number? (board step))
+    (let [player (first turn-of)
+          step-in-board (assoc board step player)]
+      (-> world
+          (assoc :board step-in-board)
+          (assoc :turn-of (rest turn-of))
+          (#(assoc % :winner (winner? %)))))
+    world))
 
 ;;until a winner arise in glorious
 (defn- winners-in-world [world]
@@ -49,5 +51,4 @@
               (doto show))
          (reductions take-step-in-board world steps))))
 
-(defn play [in out]
-  (players-taking-steps world in out))
+(def play (partial players-taking-steps world))

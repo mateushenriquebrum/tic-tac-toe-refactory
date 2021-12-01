@@ -52,3 +52,7 @@
          (reductions take-step-in-board world steps))))
 
 (def play (partial players-taking-steps world))
+
+
+(def w {:board [0 1 2] :paths [[1]] :turn-of [:x :o]})
+(take-step-in-board w 1)

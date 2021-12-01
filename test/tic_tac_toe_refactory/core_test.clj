@@ -13,3 +13,9 @@
     (testing "But can happens for both sides"
       (is (= :o (winner? {:board [:o 2 :x :o :x 5 :o 7 :x] :paths paths}))))))
 
+(deftest about-take-steps-in-life
+  (let [world {:board [0 1 2] :paths [[1]] :turn-of (cycle [:x :o])}]
+    (testing "You can take one step each time in the world"
+      (is (= [0 :x 2] (:board (take-step-in-board world 1)))))
+    (testing "And thouse steps define you"
+      (is (= :x (:winner (take-step-in-board world 1)))))))

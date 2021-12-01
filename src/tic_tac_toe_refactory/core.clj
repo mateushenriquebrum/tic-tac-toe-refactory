@@ -11,14 +11,14 @@
 
 (def path mapv)
 
-(defn- board-from-paths [{:keys [board paths]}]
+(defn board-from-paths [{:keys [board paths]}]
   (map (partial path board) paths))
 
-(defn- search-winner [world player]
+(defn search-winner [world player]
   (map (partial every? player) (board-from-paths world)))
 
 ;;you can be a winner
-(defn- winner? [world]
+(defn winner? [world]
   (let [x-winner? (some true? (search-winner world {:x true}))
         o-winner? (some true? (search-winner world {:o true}))]
     (cond
@@ -27,7 +27,7 @@
       :else :nope)))
 
 ;;but you need chose your step wisely
-(defn- take-step-in-board [{:keys [board turn-of] :as world} step]
+(defn take-step-in-board [{:keys [board turn-of] :as world} step]
   (if (number? (board step))
     (let [player (first turn-of)
           step-in-board (assoc board step player)]
@@ -38,13 +38,13 @@
     world))
 
 ;;until a winner arise in glorious
-(defn- winners-in-world [world]
+(defn winners-in-world [world]
   (cond
     (= :x (:winner world)) true
     (= :o (:winner world)) true
     :else false))
 
-(defn- players-taking-steps [world steps show]
+(defn players-taking-steps [world steps show]
    (some
     winners-in-world
     (map #(-> %

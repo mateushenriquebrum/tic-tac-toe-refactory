@@ -44,6 +44,7 @@
     (= :o (:winner world)) true
     :else false))
 
+;;but one stepe every time
 (defn players-taking-steps [world steps show]
    (some
     winners-in-world
@@ -52,7 +53,3 @@
          (reductions take-step-in-board world steps))))
 
 (def play (partial players-taking-steps world))
-
-
-(def w {:board [0 1 2] :paths [[1]] :turn-of [:x :o]})
-(take-step-in-board w 1)

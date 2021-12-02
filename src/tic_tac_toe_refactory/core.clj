@@ -28,6 +28,7 @@
 
 ;;but you need chose your step wisely
 (defn take-step-in-board [{:keys [board turn-of] :as world} step]
+  ;;(println board step)
   (if (number? (board step))
     (let [player (first turn-of)
           step-in-board (assoc board step player)]
@@ -44,12 +45,19 @@
     (= :o (:winner world)) true
     :else false))
 
+;;or we can still play
+(defn game-is-on? [world]
+ (not (every? keyword? (:board world))))
+
 ;;but one stepe every time
-(defn players-taking-steps [world steps show]
-   (some
-    winners-in-world
-    (map #(-> %
-              (doto show))
-         (reductions take-step-in-board world steps))))
+(defn players-taking-steps [empty-world some-steps show]
+  (show empty-world)
+  (loop [world empty-world
+         steps some-steps]
+    (if (= true (winners-in-world world))
+      world
+      (let [new-world (take-step-in-board world (first steps))]
+        (show new-world)
+        (recur new-world (rest steps))))))
 
 (def play (partial players-taking-steps world))

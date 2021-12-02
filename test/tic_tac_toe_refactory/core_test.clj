@@ -13,12 +13,11 @@
     (testing "But can happens for both sides"
       (is (= :o (winner? {:board [:o 2 :x :o :x 5 :o 7 :x] :paths paths}))))))
 
-(deftest about-winners-and-lossers 
-  (let []
-    (testing "Winners can arise with they play fair and wisely"
-      (is (= true (winners-in-world {:winner :x}))))
-    (testing "Or even exists"
-      (is (= false (winners-in-world {:winner :nope}))))))
+(deftest about-winners-and-lossers
+  (testing "Winners can arise with they play fair and wisely"
+    (is (= true (winners-in-world {:winner :x}))))
+  (testing "Or even exists"
+    (is (= false (winners-in-world {:winner :nope})))))
 
 (deftest about-take-steps-in-life
   (let [world {:board [0 1 2] :paths [[1]] :turn-of [:x :o :x]}]
@@ -27,11 +26,19 @@
     (testing "And thouse steps define you"
       (is (= :x (:winner (take-step-in-board world 1)))))))
 
+(deftest about-no-more-chances
+  (testing "Sometimes you have a plenty"
+    (is (= true (game-is-on? {:board [1 2 3]}))))
+  (testing "Sometimes just few"
+    (is (= true (game-is-on? {:board [:x :o 3]}))))
+  (testing "But it always go eventually"
+    (is (= false (game-is-on? {:board [:x :o :x]})))))
+
 (deftest about-competing-to-win
-  (let [world {:board [0 1 2] :paths [[1]] :turn-of [:x :o :x] :winner :nope}]
-    (testing "With the right steps you will win"
-      (is (= true (players-taking-steps world [0 2 1] identity))))
-    (testing "But if you do not pay attention certainly loose"
-      (is (= true (players-taking-steps world [0 1] identity))))
-    (testing "Or even tie"
-      (is (not= true (players-taking-steps world [0] identity))))))
+  (testing "With the right steps you will win"
+    (is (= :x (:winner (players-taking-steps world [0 3 1 4 2] identity)))))
+  (testing "Or loose if you do not pay enouth attention"
+    (is (= :o (:winner (players-taking-steps world [8 3 1 4 2 5] identity)))))
+  ;; (testing "But there is always a tie to restart again"
+  ;;   (is (= :nope (:winner (players-taking-steps world [4 0 6 3 8 7 1 3 5] identity)))))
+    )

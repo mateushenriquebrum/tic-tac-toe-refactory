@@ -48,12 +48,10 @@
 
 ;;but one stepe every time
 (defn players-taking-steps [empty-world some-steps show]
-  (def no-winner?
-    (complement winners-in-world))
   (show empty-world)
   (loop [world empty-world
          steps some-steps]
-    (if (and (no-winner? world) (game-is-on? world))
+    (if (and (not (winners-in-world world)) (game-is-on? world))
       (let [new-world (take-step-in-board world (first steps))]
         (show new-world)
         (recur new-world (rest steps)))

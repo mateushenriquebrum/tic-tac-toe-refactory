@@ -1,6 +1,6 @@
-# Tic-toc-tae game via command line
+# Tic-toc-toe game via command line
 
-Tic-toc-tae using data-oriented programming.
+Tic-toc-toe using data-oriented programming.
 
 ## Usage
 

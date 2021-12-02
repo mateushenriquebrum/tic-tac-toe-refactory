@@ -15,4 +15,5 @@
     (println (str "Player " (name (:winner world)) " won!!!"))
     (println (str "Player " (name (first (:turn-of world))) " make your turn!"))))
   
-(play input-from-keyboard pretty-out)
+(defn -main [& _]
+  (play input-from-keyboard pretty-out))

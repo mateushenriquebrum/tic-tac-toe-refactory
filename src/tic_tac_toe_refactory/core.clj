@@ -40,17 +40,15 @@
           (#(assoc % :winner (winner? %)))))
     world))
 
-;;until a winner arise in glorious
-(defn no-winners-in-world [world]
-  (= :nope (:winner world)))
-
+(defn continue-playing? [world]
+  (and (= :nope (:winner world)) (:game-on? world)))
 
 ;;but one stepe every time
 (defn players-taking-steps [empty-world some-steps show]
   (show empty-world)
   (loop [world empty-world
          steps some-steps]
-    (if (and (no-winners-in-world world) (:game-on? world))
+    (if (continue-playing? world)
       (let [new-world (take-step-in-board world (first steps))]
         (show new-world)
         (recur new-world (rest steps)))
@@ -58,4 +56,4 @@
 
 (def play (partial players-taking-steps world))
 
-;;(players-taking-steps world [4 0 6 3 8 7 1 5 2] println)
+(players-taking-steps world [4 0 8 5 2 1 3 6] println)

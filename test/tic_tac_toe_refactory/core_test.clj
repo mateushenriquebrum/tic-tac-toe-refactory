@@ -13,12 +13,6 @@
     (testing "But can happens for both sides"
       (is (= :o (winner? {:board [:o 2 :x :o :x 5 :o 7 :x] :paths paths}))))))
 
-(deftest about-winners-and-lossers
-  (testing "Winners can arise with they play fair and wisely"
-    (is (= false (no-winners-in-world {:winner :x}))))
-  (testing "Or even exists"
-    (is (= true (no-winners-in-world {:winner :nope})))))
-
 (deftest about-take-steps-in-life
   (let [world {:board [0 1 2] :paths [[1]] :turn-of [:x :o :x]}]
     (testing "You can take one step each time in the world"
@@ -39,6 +33,5 @@
     (is (= :x (:winner (players-taking-steps world [0 3 1 4 2] identity)))))
   (testing "Or loose if you do not pay enouth attention"
     (is (= :o (:winner (players-taking-steps world [8 3 1 4 2 5] identity)))))
-  ;; (testing "But there is always a tie to restart again"
-  ;;   (is (= :nope (:winner (players-taking-steps world [4 0 6 3 8 7 1 5 2] identity)))))
-    )
+  (testing "But there is always a tie to restart again"
+    (is (= :nope (:winner (players-taking-steps world [4 0 8 5 2 1 3 6] identity))))))

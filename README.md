@@ -1,6 +1,6 @@
-# tic-tac-toe-refactory
+# Tic-toc-tae game via command line
 
-Tic-toc-tae
+Tic-toc-tae using data-oriented programming.
 
 ## Usage
 

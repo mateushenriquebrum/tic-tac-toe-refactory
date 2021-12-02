@@ -40,5 +40,5 @@
   (testing "Or loose if you do not pay enouth attention"
     (is (= :o (:winner (players-taking-steps world [8 3 1 4 2 5] identity)))))
   ;; (testing "But there is always a tie to restart again"
-  ;;   (is (= :nope (:winner (players-taking-steps world [4 0 6 3 8 7 1 3 5] identity)))))
+  ;;   (is (= :nope (:winner (players-taking-steps world [4 0 6 3 8 7 1 5 2] identity)))))
     )

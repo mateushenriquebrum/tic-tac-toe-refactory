@@ -47,17 +47,21 @@
 
 ;;or we can still play
 (defn game-is-on? [world]
- (not (every? keyword? (:board world))))
+  (not (every? keyword? (:board world))))
 
 ;;but one stepe every time
 (defn players-taking-steps [empty-world some-steps show]
+  (def no-winner?
+    (complement winners-in-world))
   (show empty-world)
   (loop [world empty-world
          steps some-steps]
-    (if (= true (winners-in-world world))
-      world
+    (if (and (no-winner? world) (game-is-on? world))
       (let [new-world (take-step-in-board world (first steps))]
         (show new-world)
-        (recur new-world (rest steps))))))
+        (recur new-world (rest steps)))
+      world)))
 
 (def play (partial players-taking-steps world))
+
+;;(players-taking-steps world [4 0 6 3 8 7 1 5 2] println)

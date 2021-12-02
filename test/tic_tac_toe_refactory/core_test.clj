@@ -20,18 +20,18 @@
     (testing "And thouse steps define you"
       (is (= :x (:winner (take-step-in-board world 1)))))))
 
-;; (deftest about-no-more-chances
-;;   (testing "Sometimes you have a plenty"
-;;     (is (= true (game-is-on? {:board [1 2 3]}))))
-;;   (testing "Sometimes just few"
-;;     (is (= true (game-is-on? {:board [:x :o 3]}))))
-;;   (testing "But it always go eventually"
-;;     (is (= false (game-is-on? {:board [:x :o :x]})))))
+(deftest about-no-more-chances
+  (testing "Sometimes you have a plenty"
+    (is (= true (game-is-on? {:board [1 2 3]}))))
+  (testing "Sometimes just few"
+    (is (= true (game-is-on? {:board [:x :o 3]}))))
+  (testing "But it always go eventually"
+    (is (= false (game-is-on? {:board [:x :o :x]})))))
 
 (deftest about-competing-to-win
   (testing "With the right steps you will win"
     (is (= :x (:winner (players-taking-steps world [0 3 1 4 2] identity)))))
   (testing "Or loose if you do not pay enouth attention"
     (is (= :o (:winner (players-taking-steps world [8 3 1 4 2 5] identity)))))
-  (testing "But there is always a tie to restart again"
-    (is (= :nope (:winner (players-taking-steps world [4 0 8 5 2 1 3 6] identity))))))
+  (testing "But there is always a tied to restart again"
+    (is (= :nope (:winner (players-taking-steps world [4 0 8 5 2 1 3 6 7] identity))))))

@@ -27,6 +27,10 @@
       o-winner? :o
       :else :nope)))
 
+;;and and keep the game on
+(defn game-is-on? [world]
+  (not (every? keyword? (:board world))))
+
 ;;but you need chose your step wisely
 (defn take-step-in-board [{:keys [board turn-of] :as world} step]
   ;;(println board step)
@@ -36,10 +40,11 @@
       (-> world          
           (assoc :board step-in-board)
           (assoc :turn-of (rest turn-of))
-          (#(assoc % :game-on? (not (every? keyword? (:board %)))))
+          (#(assoc % :game-on? (game-is-on? %)))
           (#(assoc % :winner (winner? %)))))
     world))
-
+    
+;;untill you wont be able to play anymore
 (defn continue-playing? [world]
   (and (= :nope (:winner world)) (:game-on? world)))
 
@@ -56,4 +61,4 @@
 
 (def play (partial players-taking-steps world))
 
-(players-taking-steps world [4 0 8 5 2 1 3 6] println)
+(players-taking-steps world [4 0 8 5 2 1 3 6 7] identity)

@@ -15,9 +15,9 @@
 
 (deftest about-winners-and-lossers
   (testing "Winners can arise with they play fair and wisely"
-    (is (= true (winners-in-world {:winner :x}))))
+    (is (= false (no-winners-in-world {:winner :x}))))
   (testing "Or even exists"
-    (is (= false (winners-in-world {:winner :nope})))))
+    (is (= true (no-winners-in-world {:winner :nope})))))
 
 (deftest about-take-steps-in-life
   (let [world {:board [0 1 2] :paths [[1]] :turn-of [:x :o :x]}]
@@ -26,13 +26,13 @@
     (testing "And thouse steps define you"
       (is (= :x (:winner (take-step-in-board world 1)))))))
 
-(deftest about-no-more-chances
-  (testing "Sometimes you have a plenty"
-    (is (= true (game-is-on? {:board [1 2 3]}))))
-  (testing "Sometimes just few"
-    (is (= true (game-is-on? {:board [:x :o 3]}))))
-  (testing "But it always go eventually"
-    (is (= false (game-is-on? {:board [:x :o :x]})))))
+;; (deftest about-no-more-chances
+;;   (testing "Sometimes you have a plenty"
+;;     (is (= true (game-is-on? {:board [1 2 3]}))))
+;;   (testing "Sometimes just few"
+;;     (is (= true (game-is-on? {:board [:x :o 3]}))))
+;;   (testing "But it always go eventually"
+;;     (is (= false (game-is-on? {:board [:x :o :x]})))))
 
 (deftest about-competing-to-win
   (testing "With the right steps you will win"

@@ -7,6 +7,7 @@
    :paths [[0 1 2] [3 4 5] [6 7 8] [0 3 6] [1 4 7] [2 5 8] [0 4 8] [2 4 6]] ;;with strict paths for the glory
    :turn-of [:x :o :x :o :x :o :x :o :x] ;;but you have enimies and a multual conduct code to follow
    :winner :nope ;;until a winner rise
+   :game-on? true ;;or untill it finish
    })
 
 (def path mapv)
@@ -32,26 +33,24 @@
   (if (number? (board step))
     (let [player (first turn-of)
           step-in-board (assoc board step player)]
-      (-> world
+      (-> world          
           (assoc :board step-in-board)
           (assoc :turn-of (rest turn-of))
+          (#(assoc % :game-on? (not (every? keyword? (:board %)))))
           (#(assoc % :winner (winner? %)))))
     world))
 
 ;;until a winner arise in glorious
-(defn winners-in-world [world]
-  (not= :nope (:winner world)))
+(defn no-winners-in-world [world]
+  (= :nope (:winner world)))
 
-;;or we can still play
-(defn game-is-on? [world]
-  (not (every? keyword? (:board world))))
 
 ;;but one stepe every time
 (defn players-taking-steps [empty-world some-steps show]
   (show empty-world)
   (loop [world empty-world
          steps some-steps]
-    (if (and (not (winners-in-world world)) (game-is-on? world))
+    (if (and (no-winners-in-world world) (:game-on? world))
       (let [new-world (take-step-in-board world (first steps))]
         (show new-world)
         (recur new-world (rest steps)))

@@ -1,32 +1,10 @@
 # tic-tac-toe-refactory
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
+Tic-toc-tae
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar tic-tac-toe-refactory-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    $ lein run
 
 ## License
 

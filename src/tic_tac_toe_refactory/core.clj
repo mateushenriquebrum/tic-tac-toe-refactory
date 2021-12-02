@@ -40,10 +40,7 @@
 
 ;;until a winner arise in glorious
 (defn winners-in-world [world]
-  (cond
-    (= :x (:winner world)) true
-    (= :o (:winner world)) true
-    :else false))
+  (not= :nope (:winner world)))
 
 ;;or we can still play
 (defn game-is-on? [world]

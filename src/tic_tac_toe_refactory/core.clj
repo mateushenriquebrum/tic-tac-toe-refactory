@@ -33,7 +33,6 @@
 
 ;;but you need chose your step wisely
 (defn take-step-in-board [{:keys [board turn-of] :as world} step]
-  ;;(println board step)
   (if (number? (board step))
     (let [player (first turn-of)
           step-in-board (assoc board step player)]
@@ -60,5 +59,3 @@
       world)))
 
 (def play (partial players-taking-steps world))
-
-(players-taking-steps world [4 0 8 5 2 1 3 6 7] identity)

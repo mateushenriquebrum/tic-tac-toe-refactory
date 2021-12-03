@@ -1,5 +1,4 @@
-(ns tic-tac-toe-refactory.core
-  (:gen-class))
+(ns tic-tac-toe-refactory.core)
 
 ;;in a wolrd
 (def world

@@ -1,5 +1,5 @@
 (ns tic-tac-toe-refactory.core-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [deftest is testing]]
             [tic-tac-toe-refactory.core :refer :all]))
 
 (deftest about-winners
@@ -30,8 +30,8 @@
 
 (deftest about-competing-to-win
   (testing "With the right steps you will win"
-    (is (= :x (:winner (players-taking-steps world [0 3 1 4 2] identity)))))
+    (is (= :x (:winner (last (players-taking-steps world [0 3 1 4 2]))))))
   (testing "Or loose if you do not pay enouth attention"
-    (is (= :o (:winner (players-taking-steps world [8 3 1 4 2 5] identity)))))
+    (is (= :o (:winner (last (players-taking-steps world [8 3 1 4 2 5]))))))
   (testing "But there is always a tied to restart again"
-    (is (= :nope (:winner (players-taking-steps world [4 0 8 5 2 1 3 6 7] identity))))))
+    (is (= :nope (:winner (last (players-taking-steps world [4 0 8 5 2 1 3 6 7])))))))

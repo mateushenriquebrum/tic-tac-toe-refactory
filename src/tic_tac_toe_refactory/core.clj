@@ -39,20 +39,19 @@
         (assoc :turn-of (rest turn-of))
         (#(assoc % :game-on? (game-is-on? %)))
         (#(assoc % :winner (winner? %))))))
-    
+
 ;;untill you wont be able to play anymore
 (defn continue-playing? [world]
   (and (= :nope (:winner world)) (:game-on? world)))
 
-;;but one stepe every time
-(defn players-taking-steps [world steps show]
-  (show world)
-  (loop [world world
-         steps steps]
-    (if (continue-playing? world)
-      (let [new-world (take-step-in-board world (first steps))]
-        (show new-world)
-        (recur new-world (rest steps)))
-      world)))
+;; as lazy
+(defn players-taking-steps [world steps]
+  (if (continue-playing? world)
+    (cons world
+          (lazy-seq (players-taking-steps
+                     (take-step-in-board world (first steps))
+                     (rest steps))))
+    (cons world '())))
 
 (def play (partial players-taking-steps world))
+

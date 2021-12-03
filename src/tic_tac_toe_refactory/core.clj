@@ -45,10 +45,10 @@
   (and (= :nope (:winner world)) (:game-on? world)))
 
 ;;but one stepe every time
-(defn players-taking-steps [empty-world some-steps show]
-  (show empty-world)
-  (loop [world empty-world
-         steps some-steps]
+(defn players-taking-steps [world steps show]
+  (show world)
+  (loop [world world
+         steps steps]
     (if (continue-playing? world)
       (let [new-world (take-step-in-board world (first steps))]
         (show new-world)

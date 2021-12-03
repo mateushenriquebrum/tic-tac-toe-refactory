@@ -35,10 +35,10 @@
 (defn take-step-in-board [{:keys [board turn-of] :as world} step]
   (when (number? (board step))
     (as-> world w
-        (assoc w :board (assoc board step (first turn-of)))
-        (assoc w :turn-of (rest turn-of))
-        (assoc w :game-on? (game-is-on? w))
-        (assoc w :winner (winner? w)))))
+      (assoc-in w [:board step] (first turn-of))
+      (update w :turn-of rest)
+      (assoc w :game-on? (game-is-on? w))
+      (assoc w :winner (winner? w)))))
 
 ;;untill you wont be able to play anymore
 (defn continue-playing? [world]
@@ -54,3 +54,7 @@
     (cons world '())))
 
 (def play (partial players-taking-steps world))
+
+(def w 
+  {:board [0 0 0]})
+(assoc-in w [:board 0] (first [9 8]))

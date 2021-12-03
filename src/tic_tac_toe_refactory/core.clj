@@ -54,9 +54,3 @@
     (cons world '())))
 
 (def play (partial players-taking-steps world))
-
-(defn transform [person]
-  (as-> person p
-      (assoc p :hair-color :pink)
-      (update p :age inc)))
-(transform {:name "mateus" :age 39})

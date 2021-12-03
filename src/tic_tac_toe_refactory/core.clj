@@ -54,7 +54,3 @@
     (cons world '())))
 
 (def play (partial players-taking-steps world))
-
-(def w 
-  {:board [0 0 0]})
-(assoc-in w [:board 0] (first [9 8]))

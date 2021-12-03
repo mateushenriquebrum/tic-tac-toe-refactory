@@ -33,15 +33,12 @@
 
 ;;but you need chose your step wisely
 (defn take-step-in-board [{:keys [board turn-of] :as world} step]
-  (if (number? (board step))
-    (let [player (first turn-of)
-          step-in-board (assoc board step player)]
-      (-> world          
-          (assoc :board step-in-board)
-          (assoc :turn-of (rest turn-of))
-          (#(assoc % :game-on? (game-is-on? %)))
-          (#(assoc % :winner (winner? %)))))
-    world))
+  (when (number? (board step))
+    (-> world
+        (assoc :board (assoc board step (first turn-of)))
+        (assoc :turn-of (rest turn-of))
+        (#(assoc % :game-on? (game-is-on? %)))
+        (#(assoc % :winner (winner? %))))))
     
 ;;untill you wont be able to play anymore
 (defn continue-playing? [world]

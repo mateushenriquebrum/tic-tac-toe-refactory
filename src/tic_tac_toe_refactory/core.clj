@@ -34,11 +34,11 @@
 ;;but you need chose your step wisely
 (defn take-step-in-board [{:keys [board turn-of] :as world} step]
   (when (number? (board step))
-    (-> world
-        (assoc :board (assoc board step (first turn-of)))
-        (assoc :turn-of (rest turn-of))
-        (#(assoc % :game-on? (game-is-on? %)))
-        (#(assoc % :winner (winner? %))))))
+    (as-> world w
+        (assoc w :board (assoc board step (first turn-of)))
+        (assoc w :turn-of (rest turn-of))
+        (assoc w :game-on? (game-is-on? w))
+        (assoc w :winner (winner? w)))))
 
 ;;untill you wont be able to play anymore
 (defn continue-playing? [world]
@@ -55,3 +55,8 @@
 
 (def play (partial players-taking-steps world))
 
+(defn transform [person]
+  (as-> person p
+      (assoc p :hair-color :pink)
+      (update p :age inc)))
+(transform {:name "mateus" :age 39})
